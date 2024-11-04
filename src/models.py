@@ -31,8 +31,8 @@ class Post(Base):
      favorited_by = relationship("Favorites", back_populates="post")
     
 
-class Follower(Base):
-    __tablename__ = 'follower'
+class Followers(Base):
+    __tablename__ = 'followers'
     user_from_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
     user_to_id = Column(Integer, ForeignKey('user.id'), primary_key=True)  
 
@@ -45,7 +45,7 @@ class Comment(Base):
     id = Column(Integer, primary_key=True)
     post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    comment_text = Column(Text, nullable=False)
+
 
     post = relationship("Post", back_populates="comments")
     user = relationship("User", back_populates="comments")
@@ -60,7 +60,7 @@ class Favorites(Base):
     post_id = Column(Integer, ForeignKey('post.id'))
 
     user = relationship("User", back_populates="favorites")
-    post = relationship("Post", back_populates="favorited_by")
+    post = relationship("Post", back_populates="favorites")
 
 ## Draw from SQLAlchemy base
 try:
